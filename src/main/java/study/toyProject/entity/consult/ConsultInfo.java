@@ -1,8 +1,7 @@
 package study.toyProject.entity.consult;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import study.toyProject.dto.requestDto.ConsultSaveRequestDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder(builderMethodName = "ConsultInfoBuilder")
 public class ConsultInfo {
 
     @Id @GeneratedValue
@@ -33,4 +34,16 @@ public class ConsultInfo {
 
     @OneToMany(mappedBy = "consultInfo")
     List<ConsultFile> files = new ArrayList<>();
+
+    public static ConsultInfoBuilder builder(ConsultSaveRequestDto consultSaveRequestDto) {
+        return ConsultInfoBuilder()
+                .consultType(consultSaveRequestDto.getConsultType())
+                .title(consultSaveRequestDto.getTitle())
+                .contents(consultSaveRequestDto.getContents())
+                .phone(consultSaveRequestDto.getPhone())
+                .email(consultSaveRequestDto.getEmail())
+                .userID(consultSaveRequestDto.getUserID())
+                .status(consultSaveRequestDto.getStatus())
+                .searchPhone(consultSaveRequestDto.getSearchPhone());
+    }
 }

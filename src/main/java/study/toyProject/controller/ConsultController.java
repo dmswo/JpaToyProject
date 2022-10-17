@@ -5,13 +5,11 @@ import org.json.simple.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import study.toyProject.common.ApiResultInfo;
 import study.toyProject.common.ResultCodeStatus;
 import study.toyProject.dto.requestDto.ConsultListRequestDto;
+import study.toyProject.dto.requestDto.ConsultSaveRequestDto;
 import study.toyProject.service.ConsultService;
 
 @RestController
@@ -40,5 +38,22 @@ public class ConsultController {
         return new ResponseEntity<JSONObject>(apiResultInfo.getResultJson(), apiResultInfo.getHttpStatus());
     }
 
+    @PostMapping("/save")
+    public ResponseEntity<?> consultSave(@RequestBody ConsultSaveRequestDto consultSaveRequestDto) {
+        ApiResultInfo apiResultInfo = new ApiResultInfo();
+        JSONObject jsonObject = apiResultInfo.getResultJson();
+
+        try {
+            consultService.consultSave(consultSaveRequestDto);
+        } catch (Exception e) {
+            apiResultInfo.setErrorMsg(e.getMessage());
+            apiResultInfo.setResultCode(ResultCodeStatus.SERVER_ERROR);
+        }
+
+        jsonObject.put("resultCode", apiResultInfo.getResultCode().value());
+        jsonObject.put("resultMsg", apiResultInfo.getResultCode().reasonPhrase());
+
+        return new ResponseEntity<JSONObject>(apiResultInfo.getResultJson(), apiResultInfo.getHttpStatus());
+    }
 
 }
