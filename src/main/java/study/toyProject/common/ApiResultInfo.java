@@ -14,6 +14,6 @@ public class ApiResultInfo {
     public ApiResultInfo(){
         this.resultCode = ResultCodeStatus.OK;
         this.httpStatus = HttpStatus.OK;
-        this.resultJson =  new JSONObject();
+        this.resultJson = new JSONObject();
     }
 }

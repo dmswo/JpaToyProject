@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Data
 public class ConsultListRequestDto {
 
-    private LocalDate searchStartDate;
-    private LocalDate searchEndDate;
+    private String searchStartDate;
+    private String searchEndDate;
     private String consultType;
     private String status;
 }

@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static study.toyProject.entity.consult.QConsultInfo.consultInfo;
@@ -69,12 +70,14 @@ public class ConsultCustomRepositoryImpl implements ConsultCustomRepository{
         return consultInfo.consultType.eq(consultType);
     }
 
-    private Predicate betweenDate(LocalDate searchStartDate, LocalDate searchEndDate) {
+    private Predicate betweenDate(String searchStartDate, String searchEndDate) {
         if (searchStartDate == null || searchEndDate == null) {
             return null;
         }
-        LocalDateTime startDate = LocalDateTime.of(searchStartDate, LocalTime.MIN);
-        LocalDateTime endDate = LocalDateTime.of(searchStartDate, LocalTime.MAX);
+        LocalDate sDate = LocalDate.parse(searchStartDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDate eDate = LocalDate.parse(searchEndDate, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        LocalDateTime startDate = LocalDateTime.of(sDate, LocalTime.MIN);
+        LocalDateTime endDate = LocalDateTime.of(eDate, LocalTime.MAX);
         return consultInfo.regDate.between(startDate, endDate);
     }
 }

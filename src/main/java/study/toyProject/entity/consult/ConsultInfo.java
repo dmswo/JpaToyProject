@@ -1,7 +1,10 @@
 package study.toyProject.entity.consult;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import study.toyProject.dto.requestDto.ConsultSaveRequestDto;
+import study.toyProject.entity.common.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(builderMethodName = "ConsultInfoBuilder")
-public class ConsultInfo {
+@EntityListeners(AuditingEntityListener.class)
+public class ConsultInfo extends BaseEntity {
 
     @Id @GeneratedValue
     private Long seq;
@@ -29,7 +33,6 @@ public class ConsultInfo {
     private String manageID;
     private String status;
     private String searchPhone;
-    private LocalDateTime regDate;
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "consultInfo")
