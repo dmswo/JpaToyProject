@@ -1,7 +1,6 @@
 package study.toyProject.entity.consult;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import study.toyProject.dto.requestDto.ConsultSaveRequestDto;
 import study.toyProject.entity.common.BaseEntity;
